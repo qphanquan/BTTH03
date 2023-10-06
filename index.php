@@ -5,20 +5,20 @@ require_once 'config/DbConnection.php';
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
-$controller = ucfirst($controller);
+//echo $controller.'--'.$action;
+$controller = ucfirst($controller); //Chuyển kí tự đầu sang in hoa: home > Home
 
-$fileController = 'controller/' . $controller . 'Controller.php';
-
-if (!file_exists($fileController)) {
-    die('File không tồn tại');
+$controller = $controller."Controller"; //Home > HomeController
+$path = "controller/".$controller.".php"; //HomeController > controllers/HomeController.php
+// echo $path;
+if(!file_exists($path)){
+    die("Request not found. Check your path");
 }
-
-require_once $fileController;
-$className = $controller.'Controller';
-$object = new $className;
-
-if (!method_exists($object, $action)) {
-    die('Method không tồn tại!');
+//include "$path"; // #include "controllers/HomeController.php";
+require_once "$path";
+$myController = new $controller();
+if (method_exists($myController, $action)) {
+    $myController->$action();
+} else {
+    echo "$action does not exist in $controller class";
 }
-
-$object->$action();

@@ -31,10 +31,10 @@
                             <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Thêm bài hát</a>
+                            <a class="nav-link" href="">Thêm bài hát</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Sửa bài hát</a>
+                            <a class="nav-link" href="">Sửa bài hát</a>
                         </li>
                     </ul>
                 </div>
@@ -44,13 +44,14 @@
 
     <main>
         <div class="container">
-            <a href="?action=create" class="btn btn-success">Thêm mới</a>
+            <a href="?action=createBaiHat" class="btn btn-success">Thêm mới</a>
             <table class="table">
                 <thead>
                     <tr>
-                        <!-- <th scope="col">#</th> -->
+                        <th scope="col">#</th>
                         <th scope="col">Tên bài hát</th>
                         <th scope="col">Tên ca sĩ</th>
+                        <th scope="col">Thuộc thể loại</th>
                         <th scope="col">Sửa</th>
                         <th scope="col">Xóa</th>
                     </tr>
@@ -60,19 +61,22 @@
                     if ($baihats != null) {
                         foreach ($baihats as $baihat) { ?>
                             <tr>
-                                <!-- <th scope="row"><?= $baihat->getId() ?></th> -->
+                                <th scope="row"><?= $baihat->getId() ?></th>
                                 <td><?= $baihat->getTenBaiHat() ?></td>
                                 <td><?= $baihat->getCaSi() ?></td>
+                                <?php foreach($theloais as $theloai){
+                                    if($theloai->getId() == $baihat->getIdTheLoai()){?>
+                                    <td><?= $theloai->getTenTheLoai() ?></td>
+                                <?php }} ?>
                                 <td>
-                                    <a href="?action=update&id=<?= $baihat->getId() ?>"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="?action=selectBaiHat&id=<?= $baihat->getId() ?>"><i class="bi bi-pencil-square"></i></a>
                                 </td>
                                 <td>
-                                    <!-- <a href="?action=delete&id=<?= $baihat->getId() ?>"><i class="bi bi-trash3"></i></a> -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $baihat->getId() ?>">
                                         <i class="bi bi-trash3"></i>
                                     </button>
 
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal fade" id="staticBackdrop<?= $baihat->getId() ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -80,12 +84,11 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <!-- Are you sure detele the user have id: <?= $baihat->getId()?>? -->
-                                                    Are you sure detele?
+                                                    Are you sure detele the user have id: <?= $baihat->getId()?>?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <a href="?action=delete?id=<?= $baihat->getId()?>" class="btn btn-success">OK</a>
+                                                    <a href="?controller=strong&action=delete&id=<?= $baihat->getId()?>" class="btn btn-success">OK</a>
                                                 </div>
                                             </div>
                                         </div>

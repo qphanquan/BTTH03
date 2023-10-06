@@ -6,8 +6,8 @@ class BaiHat {
     private $caSi;
     private $idTheLoai;
 
-    public function __construct($tenBaiHat, $caSi, $idTheLoai){
-        // $this->id = $id;
+    public function __construct($id, $tenBaiHat, $caSi, $idTheLoai){
+        $this->id = $id;
         $this->tenBaiHat = $tenBaiHat;
         $this->caSi = $caSi;
         $this->idTheLoai = $idTheLoai;

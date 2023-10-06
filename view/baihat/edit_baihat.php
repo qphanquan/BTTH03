@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,20 +36,24 @@
 
     <main>
         <div class="container">
-            <h2>Thêm mới bai hat</h2>
-            <form action="?controller=strong&action=create" method="post">
+            <h2>Chỉnh sửa bai hat</h2>
+            <form action="?controller=strong&action=update&id=<?= $baihat->getId() ?>" method="post">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Ten bai hat</span>
-                    <input type="text" class="form-control" name="tenBaiHat">
+                    <input type="text" class="form-control" name="tenBaiHat" value="<?= $baihat->getTenBaiHat() ?>">
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Ten ca si</span>
-                    <input type="text" class="form-control" name="tenCaSi">
+                    <input type="text" class="form-control" name="tenCaSi" value="<?= $baihat->getCaSi() ?>">
                 </div>
                 <select class="form-select" name="idTheLoai">
-                    <option>--Select-Theloai--</option>
-                    <?php foreach ($theloais as $theloai){ ?>
-                        <option value="<?= $theloai->getId() ?>"><?= $theloai->getTenTheLoai() ?></option>
+                    <?php foreach ($theloais as $theloai) {
+                        if ($theloai->getId() == $baihat->getIdTheLoai()) {
+                    ?>
+                            <option selected><?= $theloai->getTenTheLoai() ?></option>
+                        <?php } else { ?>
+                            <option value="<?= $theloai->getId() ?>"><?= $theloai->getTenTheLoai() ?></option>
+                        <?php } ?>
                     <?php } ?>
                 </select>
                 <button type="submit" name="submit" class="btn btn-success">Thêm</button>
@@ -61,4 +64,3 @@
 </body>
 
 </html>
-
